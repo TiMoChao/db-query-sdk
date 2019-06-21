@@ -7,3 +7,4 @@ composer-test.lock
 /.vscode
 /.vagrant
 .DS_STORE
+.idea
