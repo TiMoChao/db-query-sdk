@@ -31,12 +31,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Timorchao\\": "src"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "LeagueTest\\Csv\\": "tests"
+            "Timorchao\\": "src/"
         }
     }
 }
