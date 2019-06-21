@@ -1,13 +1,14 @@
 {
-    "name": "timorchao/template",
+    "name": "123u/db-query-sdk",
     "type": "library",
     "description": "Provides the ability to query data in php",
     "keywords": [
-        "template",
-        "timorchao"
+        "query",
+        "123u",
+        "sdk"
     ],
     "license": "MIT",
-    "homepage": "https://github.com/TiMoChao/lib-template",
+    "homepage": "https://github.com/TiMoChao/db-query-sdk",
     "authors": [
         {
             "name": "timorchao",
@@ -17,7 +18,7 @@
         }
     ],
     "support": {
-        "email": "luochao252@gmail.com"
+        "email": "support@123u.com"
     },
     "require": {
         "php": ">=7.0.10",
@@ -31,7 +32,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Timorchao\\": "src/"
+            "HuanLe\\DBQuery\\": "src/"
         }
     }
 }

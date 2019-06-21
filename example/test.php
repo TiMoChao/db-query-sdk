@@ -7,6 +7,3 @@
  */
 
 require(dirname(__DIR__) . '/vendor/autoload.php');
-
-$timorchao = new Timorchao\Test();
-$timorchao->helloWorld();
