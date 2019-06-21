@@ -7,3 +7,6 @@
  */
 
 require(dirname(__DIR__) . '/vendor/autoload.php');
+
+$test = new HuanLe\DBQuery\Query();
+$test->select();
