@@ -1,5 +1,6 @@
-namespace Timorchao\Test;
 <?php
+namespace Timorchao;
+
 /**
  * Created by PhpStorm.
  * User: lc-timorchao
@@ -7,7 +8,7 @@ namespace Timorchao\Test;
  * Time: 10:54
  */
 
-class Timorchao
+class Test
 {
     public function helloWorld(){
         echo "Hello World!";
