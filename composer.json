@@ -28,7 +28,7 @@
     },
     "suggest": {
         "league/csv": "^9.0"
-    }
+    },
     "autoload": {
         "psr-4": {
             "Timorchao\\Test\\": "src"
