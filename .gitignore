@@ -2,6 +2,8 @@ phpunit.xml
 composer.phar
 composer.lock
 composer-test.lock
-vendor/
-.idea
+/vendor
+/.idea
+/.vscode
+/.vagrant
 .DS_STORE
