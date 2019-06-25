@@ -8,6 +8,8 @@
 
 namespace HuanLe\DBQuery\Http;
 
+use HuanLe\DBQuery\Core\DbQueryException;
+
 /**
  * Class Client
  * @package HuanLe\DBQuery\Http
@@ -44,6 +46,8 @@ class Client
 
     /**
      * @explain
+     * @return array
+     * @throws DbQueryException
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @author timorchao
      */
@@ -56,8 +60,8 @@ class Client
             ]
         );
 
-        if ($response->getStatusCode() >= 400) {
-            throw new DbQueryException("server is error,  httpcode is {$response->getStatusCode()}");
+        if ($response->getStatusCode() < 200 && $response->getStatusCode() >= 300) {
+            throw new DbQueryException($response);
         }
 
         return json_decode($response->getBody()->getContents(), true);

@@ -53,8 +53,14 @@ class QueryClient
 
     //default
     const DB_QUERY_HOST = 'https://digger.123u.com:8443/v1/query';
-    const DB_QUERY_VERSION = 'v2';
+    const DB_QUERY_VERSION = 'Query_v2';
     const DB_QUERY_TIMEOUT = 60;
+    const DB_QUERY_PARAM_CACHE = true;
+    const DB_QUERY_PARAM_CACHE_TIMEOUT = 86400;
+    const DB_QUERY_PARAM_ASYNC = false;
+    const DB_QUERY_PARAM_TIMEOUT = 360;
+    const DB_QUERY_PARAM_PAGESIZE = 20;
+    const DB_QUERY_PARAM_CURRENTPAGE = 1;
 
     private $host;
     private $requestTimeOut;
@@ -75,6 +81,23 @@ class QueryClient
     private $cache;
     private $cacheTimeOut;
     private $operator;
+    private $isDataFormat;
+
+    /**
+     * @return mixed
+     */
+    public function getIsDataFormat()
+    {
+        return $this->isDataFormat;
+    }
+
+    /**
+     * @param mixed $isDataFormat
+     */
+    public function setIsDataFormat($isDataFormat)
+    {
+        $this->isDataFormat = $isDataFormat;
+    }
 
     /**
      * @return mixed
@@ -146,6 +169,7 @@ class QueryClient
         if (!in_array($action, QueryClient::$ACTION_TYPE)) {
             throw new DbQueryException("action need 'Query or Query_v2'");
         }
+        $this->setVersion($action);
         $this->param['action'] = $action;
         $this->action          = $action;
     }
@@ -400,6 +424,14 @@ class QueryClient
         $this->setRequestTimeOut($requestTimeOut);
         $this->setVersion($version);
 
+        //default param
+        $this->param['cache']         = self::DB_QUERY_PARAM_CACHE;
+        $this->param['cache_timeout'] = self::DB_QUERY_PARAM_CACHE_TIMEOUT;
+        $this->param['async']         = self::DB_QUERY_PARAM_ASYNC;
+        $this->param['timeout']       = self::DB_QUERY_PARAM_TIMEOUT;
+        $this->param['PageSize']      = self::DB_QUERY_PARAM_PAGESIZE;
+        $this->param['CurrentPage']   = self::DB_QUERY_PARAM_CURRENTPAGE;
+
         Helper::checkEnv();
     }
 
@@ -420,8 +452,11 @@ class QueryClient
 
         $result = $Client->getData();
 
-        //result of handling
-        $obj = new QueryResponse($this->param, $result);
-        return $obj->response();
+        if ($this->getIsDataFormat()) {
+            //result of handling
+            $obj = new QueryResponse($this->param, $result);
+            return $obj->response();
+        }
+        return $result;
     }
 }

@@ -9,45 +9,51 @@
 namespace HuanLe\DBQuery\Core;
 
 
+/**
+ * Class DbQueryException
+ * @package HuanLe\DBQuery\Core
+ */
 class DbQueryException extends \Exception
 {
-    private $details = array();
+    private $responseDetails;
 
-    function __construct($details)
+    /**
+     * DbQueryException constructor.
+     *
+     * @param $responseDetails
+     */
+    function __construct($responseDetails)
     {
-        if (is_array($details)) {
-            $message = $details['code'] . ': ' . $details['message']
-                . ' RequestId: ' . $details['request-id'];
+        if (is_object($responseDetails)) {
+            $message = $responseDetails->getStatusCode() . ': ' . ' Content: ' . $responseDetails->getBody()->getContents();
             parent::__construct($message);
-            $this->details = $details;
+            $this->responseDetails = $responseDetails;
         } else {
-            $message = $details;
+            $message = $responseDetails;
             parent::__construct($message);
         }
     }
 
+    /*
+     * TODO extension DbQueryException function
+     */
     public function getHTTPStatus()
     {
-        return isset($this->details['status']) ? $this->details['status'] : '';
     }
 
     public function getRequestId()
     {
-        return isset($this->details['request-id']) ? $this->details['request-id'] : '';
     }
 
     public function getErrorCode()
     {
-        return isset($this->details['code']) ? $this->details['code'] : '';
     }
 
     public function getErrorMessage()
     {
-        return isset($this->details['message']) ? $this->details['message'] : '';
     }
 
     public function getDetails()
     {
-        return isset($this->details['body']) ? $this->details['body'] : '';
     }
 }

@@ -33,7 +33,50 @@ class QueryResponse
         $this->responseData = $responseData;
     }
 
-    public  function response(){
+    /**
+     * @explain assemble data of response
+     * @return array
+     * @author timorchao
+     */
+    public function response(): array
+    {
+        //If different types of return values are required, they can be handled separately according to requestParam
+        //instance default (BJ_KUDU,BJ_MySql,Office_MySql)
+        $datas = ['results' => []];
 
+        //get RequestId
+        if (isset($this->responseData['RequestId'])) {
+            $datas['RequestId'] = $this->responseData['RequestId'];
+        }
+
+        //get AsyncRequestId
+        if (isset($this->responseData['AsyncRequestId'])) {
+            $datas['AsyncRequestId'] = $this->responseData['AsyncRequestId'];
+        }
+
+        if (isset($this->responseData['data']['msg'])) {
+            $datas['msg'] = $this->responseData['data']['msg'];
+        }
+
+        if (isset($this->responseData['data']['code'])) {
+            $datas['code'] = $this->responseData['data']['code'];
+        }
+
+        // datas
+        if (isset($this->responseData['data']['values']) && !empty($this->responseData['data']['values'])) {
+            foreach ($this->responseData['data']['values'] as $data) {
+                $tmp = [];
+                foreach ($data as $key => $value) {
+                    if (isset($this->responseData['data']['columns'][$key])) {
+                        $tmp[$this->responseData['data']['columns'][$key]] = $value;
+                    }
+                }
+                $datas['results'][] = $tmp;
+            }
+
+            $datas['total'] = isset($this->responseData['data']['RowCount']) && $this->responseData['data']['RowCount'] > 0 ?
+                $this->responseData['data']['RowCount'] : 0;
+        }
+        return $datas;
     }
 }

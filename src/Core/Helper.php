@@ -83,26 +83,31 @@ class Helper
      * @param $param
      * @param $needCheckParam
      *
-     * @return bool
      * @throws DbQueryException
      * @author timorchao
      */
     private static function paramIsNecessary($param, $needCheckParam)
     {
-//        $flag = true;
         foreach ($param as $key => $value) {
             if ($value) {
                 if (isset($needCheckParam[$key]) || array_key_exists($key, $needCheckParam)) {
                     continue;
                 } else {
                     throw new DbQueryException("param {$key} is necessary,Please input it");
-//                    $flag = false;
-//                    break;
                 }
             } else {
                 continue;
             }
         }
-//        return $flag;
+
+        //check pagination
+        if (isset($needCheckParam['page']) || array_key_exists('page', $needCheckParam)) {
+            if (!(isset($needCheckParam['PageSize']) || array_key_exists('PageSize',
+                        $needCheckParam)) || !(isset($needCheckParam['CurrentPage']) || array_key_exists('CurrentPage',
+                        $needCheckParam))) {
+                throw new DbQueryException("param pagination is necessary,Please input it");
+            }
+        }
     }
+
 }
