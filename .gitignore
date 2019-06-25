@@ -3,7 +3,6 @@ composer.phar
 composer.lock
 composer-test.lock
 /vendor
-/example
 /.idea
 /.vscode
 /.vagrant
