@@ -66,4 +66,4 @@ php composer.phar update
 
 | Version | Status     | Packagist           | Namespace    | PHP Version |
 |---------|------------|---------------------|--------------|-------------|
-| 1.0.0    | EOL        | `123u/db-query-sdk`     | `HuanLe\DBQuery`  | >= 7.2.5    |
+| 1.0.0    | EOL        | `123u/db-query-sdk`     | `HuanLe\DBQuery`  | >= 7.0.10    |
