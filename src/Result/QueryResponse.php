@@ -80,7 +80,7 @@ class QueryResponse
 
         // handle pagination
         if (isset($this->requestParam['page']) || array_key_exists('page', $this->requestParam)) {
-            $datas['pagination'] = ['total' => 0, 'per_page' => (int)$this->requestParam['PageSize'], 'current_page' => (int)$this->requestParam['CurrentPage']];
+            $datas['pagination'] = ['total' => 0, 'per_page' => (int)$this->requestParam['PageSize'], 'current_page' => (int)$this->responseData['CurrentPage']];
             if(!empty($datas['total'])) {
                 $datas['pagination']['total'] = (int)$datas['total'];
             }
