@@ -1,4 +1,4 @@
-db-query, PHP HTTP client
+db-query, PHP client
 =======================
 
 db-query-sdk 能让你快速接入数据平台的dbquery服务.
@@ -23,6 +23,7 @@ $queryObj->setInstance($instance);
 //action coverage version
 $queryObj->setAction($action);
 $queryObj->setQuery($sql);
+//true 返回结果是否需要格式化为配置平台输出格式，false则是返回query服务原数据，不做任何处理
 $queryObj->setIsDataFormat(true);
 
 print_r($queryObj->getQueryResult());
