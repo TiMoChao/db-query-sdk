@@ -66,7 +66,7 @@ class Helper
             if (!in_array($param['instance'], QueryClient::$INSTANCE_V2_TYPE)) {
                 throw new DbQueryException("The instance has no matches for query_v2'");
             }
-            self::paramIsNecessary(Parameters::getGlobalParam()[QueryClient::ACTION_TYPE_QUERY_V2][$instance],
+            self::paramIsNecessary(Parameters::getGlobalParam()[QueryClient::ACTION_TYPE_QUERY_V2][$param['instance']],
                 $param);
         } elseif ($action == QueryClient::ACTION_TYPE_ASYNCQUERY) {
             self::paramIsNecessary(Parameters::getGlobalParam()[QueryClient::ACTION_TYPE_ASYNCQUERY],
