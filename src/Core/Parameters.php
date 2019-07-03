@@ -45,15 +45,21 @@ class Parameters
             'operator'      => false
         ];
 
+        $asyncQuery = [
+            'action' => true,
+            'query'  => true,
+        ];
+
         return [
-            'Query'    => $baseParam,
-            'Query_v2' => [
+            'Query'      => $baseParam,
+            'Query_v2'   => [
                 'BJ_Mongo'     => $mongo,
                 'BJ_Kafka'     => $kafka,
                 'BJ_MySQL'     => $baseParam,
                 'Office_MySQL' => $baseParam,
                 'BJ_MySQL'     => $baseParam
-            ]
+            ],
+            'AsyncQuery' => $asyncQuery
         ];
     }
 }

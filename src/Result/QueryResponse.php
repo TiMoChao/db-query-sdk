@@ -73,15 +73,18 @@ class QueryResponse
                 }
                 $datas['results'][] = $tmp;
             }
-
-            $datas['total'] = isset($this->responseData['RowCount']) && $this->responseData['RowCount'] > 0 ?
-                $this->responseData['RowCount'] : 0;
         }
 
         // handle pagination
-        if (isset($this->requestParam['page']) || array_key_exists('page', $this->requestParam)) {
-            $datas['pagination'] = ['total' => 0, 'per_page' => (int)$this->requestParam['PageSize'], 'current_page' => (int)$this->responseData['CurrentPage']];
-            if(!empty($datas['total'])) {
+        if (!empty($this->requestParam['page']) && !$this->requestParam['async']) {
+            $datas['total']      = isset($this->responseData['RowCount']) && $this->responseData['RowCount'] > 0 ?
+                $this->responseData['RowCount'] : 0;
+            $datas['pagination'] = [
+                'total'        => 0,
+                'per_page'     => (int)$this->requestParam['PageSize'],
+                'current_page' => (int)$this->requestParam['CurrentPage']
+            ];
+            if (!empty($datas['total'])) {
                 $datas['pagination']['total'] = (int)$datas['total'];
             }
         }

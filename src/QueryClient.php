@@ -31,10 +31,12 @@ class QueryClient
     //action type
     const ACTION_TYPE_QUERY_V2 = 'Query_v2';
     const ACTION_TYPE_QUERY = 'Query';
+    const ACTION_TYPE_ASYNCQUERY = 'AsyncQuery';
 
     static $ACTION_TYPE = [
         self::ACTION_TYPE_QUERY_V2,
         self::ACTION_TYPE_QUERY,
+        self::ACTION_TYPE_ASYNCQUERY
     ];
 
     static $INSTANCE_V2_TYPE = [
@@ -42,13 +44,13 @@ class QueryClient
         self::INSTANCE_BJ_KUDU,
         self::INSTANCE_OFFICE_MYSQL,
         self::INSTANCE_BJ_MONGO,
-        self::INSTANCE_BJ_KAFKA,
+        self::INSTANCE_BJ_KAFKA
     ];
 
     static $INSTANCE_V1_TYPE = [
         self::INSTANCE_BJ_MYSQL,
         self::INSTANCE_BJ_KUDU,
-        self::INSTANCE_OFFICE_MYSQL,
+        self::INSTANCE_OFFICE_MYSQL
     ];
 
     //default
@@ -64,7 +66,6 @@ class QueryClient
 
     private $host;
     private $requestTimeOut;
-    private $version;
     private $param = [];
 
     private $action;
@@ -134,23 +135,6 @@ class QueryClient
     /**
      * @return mixed
      */
-    public function getVersion()
-    {
-        return $this->version;
-    }
-
-    /**
-     * @param mixed $version
-     */
-    public function setVersion($version)
-    {
-        $this->param['version'] = $version;
-        $this->version          = $version;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getAction()
     {
         return $this->action;
@@ -167,9 +151,8 @@ class QueryClient
     public function setAction($action)
     {
         if (!in_array($action, QueryClient::$ACTION_TYPE)) {
-            throw new DbQueryException("action need 'Query or Query_v2'");
+            throw new DbQueryException("action need 'Query or Query_v2, AsyncQuery'");
         }
-        $this->setVersion($action);
         $this->param['action'] = $action;
         $this->action          = $action;
     }
@@ -404,11 +387,10 @@ class QueryClient
      *
      * @throws DbQueryException
      */
-    public function __construct($host, $requestTimeOut, $version)
+    public function __construct($host, $requestTimeOut)
     {
         $host           = trim($host);
         $requestTimeOut = trim($requestTimeOut);
-        $version        = trim($version);
 
         if (empty($host)) {
             throw new DbQueryException("host is empty");
@@ -416,13 +398,9 @@ class QueryClient
         if (empty($requestTimeOut)) {
             throw new DbQueryException("request timeout is empty");
         }
-        if (empty($version)) {
-            throw new DbQueryException("sdk version is empty");
-        }
 
         $this->setHost($host);
         $this->setRequestTimeOut($requestTimeOut);
-        $this->setVersion($version);
 
         //default param
         $this->param['cache']         = self::DB_QUERY_PARAM_CACHE;

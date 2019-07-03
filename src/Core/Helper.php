@@ -51,27 +51,28 @@ class Helper
      */
     public static function checkParam($param)
     {
-        $version  = $param['version'];
-        $instance = $param['instance'];
+        $action = $param['action'];
 
-        if (!in_array($version, QueryClient::$ACTION_TYPE)) {
-            throw new DbQueryException("version need 'Query or Query_v2'");
+        if (!in_array($action, QueryClient::$ACTION_TYPE)) {
+            throw new DbQueryException("version need 'Query or Query_v2, AsyncQuery");
         }
 
-        $newParam = $param;
-        unset($newParam['version']);
-
-        if ($version == QueryClient::ACTION_TYPE_QUERY) {
+        if ($action == QueryClient::ACTION_TYPE_QUERY) {
+            $param['instance'];
             if (!in_array($instance, QueryClient::$INSTANCE_V1_TYPE)) {
                 throw new DbQueryException("The instance has no matches for query'");
             }
-            self::paramIsNecessary(Parameters::getGlobalParam()[QueryClient::ACTION_TYPE_QUERY], $newParam);
-        } elseif ($version == QueryClient::ACTION_TYPE_QUERY_V2) {
+            self::paramIsNecessary(Parameters::getGlobalParam()[QueryClient::ACTION_TYPE_QUERY], $param);
+        } elseif ($action == QueryClient::ACTION_TYPE_QUERY_V2) {
+            $param['instance'];
             if (!in_array($instance, QueryClient::$INSTANCE_V2_TYPE)) {
                 throw new DbQueryException("The instance has no matches for query_v2'");
             }
             self::paramIsNecessary(Parameters::getGlobalParam()[QueryClient::ACTION_TYPE_QUERY_V2][$instance],
-                $newParam);
+                $param);
+        } elseif ($action == QueryClient::ACTION_TYPE_ASYNCQUERY) {
+            self::paramIsNecessary(Parameters::getGlobalParam()[QueryClient::ACTION_TYPE_ASYNCQUERY],
+                $param);
         } else {
             // TODO Next version
         }
@@ -109,5 +110,4 @@ class Helper
             }
         }
     }
-
 }
