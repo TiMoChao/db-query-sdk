@@ -8,6 +8,9 @@
 
 require(dirname(__DIR__) . '/vendor/autoload.php');
 
+/**
+ * use Office_MySQL and BJ_KUDU and BJ_MySQL
+ */
 $url            = 'https://digger.123u.com:8443/v1/query';
 $requestTimeOut = 60;
 $instance       = 'Office_MySQL';
@@ -18,8 +21,8 @@ from data_center_hero_stat.user_basic_info where app_plat=1 ORDER BY stat_day DE
 
 
 $queryObj = new HuanLe\DBQuery\QueryClient($url, $requestTimeOut);
-
 $queryObj->setInstance($instance);
+$queryObj->setAction($action);
 
 //action coverage version
 $queryObj->setPage(true);
@@ -28,4 +31,34 @@ $queryObj->setCurrentPage(1);
 $queryObj->setQuery($sql);
 $queryObj->setIsDataFormat(true);
 
+//print_r($queryObj->getQueryResult());
+
+/**
+ * use BJ_Mongo
+ */
+$queryObj->setAction('Query_v2');
+$queryObj->setInstance('BJ_Mongo');
+$queryObj->setQuery(new \stdClass());
+$queryObj->setAsync(false);
+$queryObj->setDb('yxs');
+$queryObj->setTable('preserve_test_warren');
+$queryObj->setPage(true);
+$queryObj->setPageSize(5);
+$queryObj->setCurrentPage(1);
+$queryObj->setCache(false);
+$queryObj->setOperator('timorchao');
+$queryObj->setQueryFunc('find');
+$queryObj->setIsDataFormat(false);
+//print_r($queryObj->getQueryResult());
+//
+///**
+// * use BJ_Kafka
+// */
+$queryObj->setAction('Query_v2');
+$queryObj->setInstance('BJ_Kafka');
+$queryObj->setQuery('select _ACCOUNTID,_APP,_DISTINCTID,_EVENTNAME,_TIME from yxs_event limit 2');
+$queryObj->setAsync(false);
+$queryObj->setCache(false);
+$queryObj->setOperator('timorchao');
+$queryObj->setIsDataFormat(true);
 print_r($queryObj->getQueryResult());
