@@ -24,6 +24,9 @@ $queryObj->setInstance($instance);
 
 //action coverage version
 $queryObj->setAction($action);
+$queryObj->setPage(true);
+$queryObj->setPageSize(20);
+$queryObj->setCurrentPage(1);
 $queryObj->setQuery($sql);
 $queryObj->setIsDataFormat(true);
 

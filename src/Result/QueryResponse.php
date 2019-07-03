@@ -74,8 +74,8 @@ class QueryResponse
                 $datas['results'][] = $tmp;
             }
 
-            $datas['total'] = isset($this->responseData['data']['RowCount']) && $this->responseData['data']['RowCount'] > 0 ?
-                $this->responseData['data']['RowCount'] : 0;
+            $datas['total'] = isset($this->responseData['RowCount']) && $this->responseData['RowCount'] > 0 ?
+                $this->responseData['RowCount'] : 0;
         }
 
         // handle pagination
