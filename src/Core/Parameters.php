@@ -57,10 +57,9 @@ class Parameters
                 'BJ_Kafka'     => $kafka,
                 'BJ_MySQL'     => $baseParam,
                 'Office_MySQL' => $baseParam,
-                'BJ_MySQL'     => $baseParam
+                'BJ_KUDU'      => $baseParam
             ],
             'AsyncQuery' => $asyncQuery
         ];
     }
 }
-
