@@ -11,8 +11,6 @@ namespace HuanLe\DBQuery\Core;
 
 use HuanLe\DBQuery\QueryClient;
 
-require_once 'parameters.php';
-
 class Helper
 {
     /**
